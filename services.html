@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - On Set Content</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --navy: #392f1f;
+            --cream: #EFE9E4;
+            --white: #FFFFFF;
+            --off-white: #F5F1ED;
+            --light-cream: #F5F1ED;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--navy);
+            line-height: 1.6;
+            background-color: var(--cream);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+        }
+
+        /* Announcement Banner */
+        .announcement-banner {
+            background-color: #A89080;
+            padding: 10px 20px;
+            text-align: center;
+            color: var(--off-white);
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            position: relative;
+            font-weight: 300;
+        }
+
+        .close-banner {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--off-white);
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--navy);
+            padding: 18px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-left {
+            display: flex;
+            gap: 25px;
+            flex: 1;
+        }
+
+        .nav-left a {
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            transition: opacity 0.3s;
+            font-weight: 300;
+        }
+
+        .nav-left a:hover {
+            opacity: 0.7;
+        }
+
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 16px;
+            color: var(--off-white);
+            letter-spacing: 2.5px;
+            font-weight: 300;
+            text-decoration: none;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 25px;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        /* Services Container */
+        .services-container {
+            background-color: var(--navy);
+            padding: 40px 60px 80px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .service-header {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-header img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) brightness(0.7);
+        }
+
+        .service-header h2 {
+            position: relative;
+            z-index: 1;
+            color: var(--off-white);
+            font-size: 48px;
+            letter-spacing: 3px;
+            font-weight: 300;
+        }
+
+        .pricing-box {
+            background-color: var(--cream);
+            padding: 25px 30px;
+            min-height: 80px;
+        }
+
+        .pricing-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pricing-box h3 {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--navy);
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: 0.5px;
+        }
+
+        .pricing-box .arrow {
+            color: var(--navy);
+            font-size: 20px;
+        }
+
+        .pricing-details {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(57, 47, 31, 0.2);
+        }
+
+        .pricing-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .pricing-details li {
+            font-size: 14px;
+            line-height: 2;
+            color: var(--navy);
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .pricing-details li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--navy);
+        }
+
+        .book-button {
+            background-color: transparent;
+            border: 1px solid var(--off-white);
+            color: var(--off-white);
+            padding: 15px 40px;
+            text-align: center;
+            font-size: 16px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'Cormorant Garamond', serif;
+            margin-top: 20px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .book-button:hover {
+            background-color: var(--off-white);
+            color: var(--navy);
+        }
+
+        /* Wish List Marquee */
+        .wish-list-marquee {
+            background-color: var(--navy);
+            color: var(--off-white);
+            padding: 25px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            padding-left: 100%;
+            animation: scroll-left 45s linear infinite;
+        }
+
+        .marquee-content span {
+            font-size: 18px;
+            letter-spacing: 1px;
+            font-weight: 300;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--navy);
+            color: var(--off-white);
+            padding: 80px 60px 40px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr 1fr;
+            gap: 80px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo-section {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .footer-logo {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .footer-tagline {
+            font-size: 13px;
+            line-height: 1.9;
+            max-width: 250px;
+            font-weight: 300;
+        }
+
+        .footer-center {
+            text-align: center;
+        }
+
+        .footer-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 48px;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .footer-contact {
+            font-size: 14px;
+            line-height: 2.2;
+            font-weight: 300;
+        }
+
+        .footer-contact a {
+            color: var(--off-white);
+            text-decoration: none;
+            display: block;
+            margin: 8px 0;
+        }
+
+        .footer-contact a:hover {
+            opacity: 0.7;
+        }
+
+        .footer-social {
+            margin-top: 40px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: 300;
+        }
+
+        .footer-social a {
+            color: var(--off-white);
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .footer-nav {
+            text-align: right;
+        }
+
+        .footer-nav a {
+            display: block;
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 14px;
+            margin: 12px 0;
+            letter-spacing: 0.8px;
+            font-weight: 300;
+        }
+
+        .footer-nav a:hover {
+            opacity: 0.7;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(245, 241, 237, 0.2);
+            padding-top: 30px;
+            text-align: left;
+        }
+
+        .footer-bottom a {
+            color: var(--off-white);
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.8px;
+            font-weight: 300;
+        }
+
+        .footer-bottom a:hover {
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .footer-nav {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 30px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-center {
+                position: static;
+                transform: none;
+            }
+
+            .services-container {
+                padding: 30px 20px 60px;
+            }
+
+            .service-header {
+                height: 150px;
+            }
+
+            .service-header h2 {
+                font-size: 36px;
+            }
+
+            .pricing-box {
+                padding: 20px;
+            }
+
+            .pricing-box h3 {
+                font-size: 14px;
+            }
+
+            .footer-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Announcement Banner -->
+    <div class="announcement-banner">
+        Middle Tennessee wedding content creator specializing in real time behind the scenes wedding content
+        <span class="close-banner" onclick="this.parentElement.style.display='none'">&times;</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-left">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services + Pricing</a>
+            <a href="index.html#inquiry">Inquire</a>
+        </div>
+        <div class="nav-center">
+            <a href="index.html" class="nav-logo">ON SET CONTENT</a>
+        </div>
+        <div class="nav-right">
+        </div>
+    </nav>
+
+    <!-- Services Container -->
+    <section class="services-container">
+        <div class="services-grid">
+            <!-- Events Column -->
+            <div class="service-column">
+                <div class="service-header">
+                    <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=80" alt="Events">
+                    <h2>EVENTS</h2>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>THE ESSENTIALS - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>Up to 3 hours of event coverage</li>
+                            <li>All raw photo and video content</li>
+                            <li>Organized online gallery for easy viewing and sharing</li>
+                            <li>1 edited 15-30 second video/reel/TikTok</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>THE BEST DAY - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>Up to 5 hours of event coverage</li>
+                            <li>All raw photo and video content</li>
+                            <li>Organized online gallery for easy viewing and sharing</li>
+                            <li>Two edited 15-30 second video/reel/TikTok or one 2-5 minute recap video</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>THE FULL ADVENTURE - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>Up to 7 hours of event coverage</li>
+                            <li>All raw photo and video content</li>
+                            <li>Organized online gallery for easy viewing and sharing</li>
+                            <li>Three edited 15-30 second video/reel/TikTok or one 2-5 minute recap video</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <a href="index.html#inquiry" class="book-button">Book Your Date</a>
+            </div>
+
+            <!-- Weddings Column -->
+            <div class="service-column">
+                <div class="service-header">
+                    <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80" alt="Weddings">
+                    <h2>WEDDINGS</h2>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>THE LOVE STORY - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>Up to 4 hours of wedding coverage</li>
+                            <li>All raw photo and video content within 24 hrs</li>
+                            <li>2 lightly edited photo's</li>
+                            <li>1 edited 15-60 second video</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>GOLDEN HOUR - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>Up to 6 hours of wedding coverage</li>
+                            <li>All raw photo and video content within 24 hrs</li>
+                            <li>3 lightly edited photo's</li>
+                            <li>2 edited 15-60 second videos or one 1-3 minute recap video</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>I DO - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>Up to 8 hours of wedding coverage</li>
+                            <li>All raw photo and video content within 24 - 48 hrs</li>
+                            <li>3 edited 15-60 second videos or one 1-3 minute recap video + one 15-60 second video</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <a href="index.html#inquiry" class="book-button">Book Your Date</a>
+            </div>
+
+            <!-- Vendors Column -->
+            <div class="service-column">
+                <div class="service-header">
+                    <img src="https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800&q=80" alt="Vendors">
+                    <h2>VENDORS</h2>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>THE SPOTLIGHT - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>3 hours of coverage</li>
+                            <li>All raw photo and video content</li>
+                            <li>One edited reel/TikTok/short form content video</li>
+                            <li>Organized online gallery</li>
+                            <li>Usage rights for commercial or personal use</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>THE STORYTELLER - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>4 hours of coverage</li>
+                            <li>Two edited reel/TikTok/short form content videos</li>
+                            <li>All raw photo and video content</li>
+                            <li>Organized online gallery</li>
+                            <li>Usage rights for commercial or personal use</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pricing-box">
+                    <div class="pricing-header">
+                        <h3>THE MASTERPIECE - Inquire for pricing</h3>
+                        <span class="arrow">˅</span>
+                    </div>
+                    <div class="pricing-details">
+                        <ul>
+                            <li>5 hours of coverage</li>
+                            <li>Two edited reel/TikTok/short form content videos</li>
+                            <li>All raw photo and video content</li>
+                            <li>Organized online gallery</li>
+                            <li>Usage rights for commercial or personal use</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <a href="index.html#inquiry" class="book-button">Book Your Date</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Wish List Marquee -->
+    <div class="wish-list-marquee">
+        <div class="marquee-content">
+            <span>WISH LIST: If you are hosting your event in Italy, Mexico, Spain, Greece, Martha's Vineyard or France I will capture your wedding or event 100% for free if you cover my travel costs. &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; WISH LIST: If you are hosting your event in Italy, Mexico, Spain, Greece, Martha's Vineyard or France I will capture your wedding or event 100% for free if you cover my travel costs. &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp; WISH LIST: If you are hosting your event in Italy, Mexico, Spain, Greece, Martha's Vineyard or France I will capture your wedding or event 100% for free if you cover my travel costs. &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo-section">
+                <img src="footer-logo.png" alt="On Set Content Logo" class="footer-logo">
+                <div class="footer-tagline">
+                    Wedding and event content creator based in Tennessee, offering services worldwide.<br><br>
+                    Capturing love in all forms.
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <h3 class="footer-title">ON SET CONTENT</h3>
+                <div class="footer-contact">
+                    <a href="mailto:onsetcontentt@gmail.com">onsetcontentt@gmail.com</a>
+                </div>
+                <div class="footer-social">
+                    <a href="https://www.instagram.com/onsetcontent?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank">INSTAGRAM</a> / <a href="https://www.tiktok.com/@onsetcontent" target="_blank">TIKTOK</a>
+                </div>
+            </div>
+
+            <div class="footer-nav">
+                <a href="index.html">Home</a>
+                <a href="services.html">Services + Pricing</a>
+                <a href="index.html#inquiry">Inquire</a>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+        </div>
+    </footer>
+</body>
+</html>
